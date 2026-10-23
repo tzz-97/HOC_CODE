@@ -1,0 +1,117 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>To Do List của tao</title>
+    <style>
+        body{
+            font-family: Arial, Helvetica, sans-serif;
+            background: f0f2f5;
+            padding: 30px;
+        }
+
+        .app {
+            max-width: 400px;
+            margin: auto;
+            background: white;
+            padding: 20px;
+            border-radius: 12px;
+        } 
+
+        h1 {
+            color: #2563eb;
+            text-align: center;
+        }
+
+        ul {
+            position: relative;
+            list-style: none;
+            padding-left: 0;
+            margin: 12px 0;
+        }
+
+        input {
+            padding: 10px;
+            width: 75%;
+            border-radius: 5px;
+            border: 1px solid #ccc;
+            outline: none;
+
+        }
+
+        button {
+            width: 18%;
+            padding: 10px;
+            background: #2563eb;
+            color: white;
+            border: none;
+            cursor: pointer;
+            border-radius: 10px;
+        }
+
+        li {
+            position: relative;
+            margin: 12px;
+            cursor: pointer;
+
+        }
+
+       .delete-btn {
+            padding: inherit;
+            position: absolute;
+            margin-left: 10px;
+            cursor: pointer;
+            color: black;
+            background-color: orangered;
+        }
+
+        .done{
+            text-decoration: line-through;
+            color: grey;
+        }
+    </style>
+</head>
+<body>
+    <div class="app">
+        <h1>Việc cần làm</h1>
+        <input id="taskInput"
+            placeholder="Nhập công việc...">
+        <button id="addButton">Thêm</button>    
+        <ul id="taskList"></ul>
+    </div>
+    <script>
+        const input = document.getElementById("taskInput");
+        const button = document.getElementById("addButton");
+        const list = document.getElementById("taskList");
+        button.addEventListener("click", function() {
+            const text = input.value.trim();
+            if (text === ""){
+                return;
+            }
+            const item = document.createElement("li");
+            item.textContent = text;
+
+            const deleteButton = document.createElement("button");
+            deleteButton.textContent = "Xóa";
+            deleteButton.classList.add("delete-btn");
+            
+
+            deleteButton.addEventListener("click", function (event) {
+                event.stopPropagation();
+                item.remove();
+            
+            });
+
+            item.appendChild(deleteButton);
+
+            item.addEventListener("click", function (){
+                item.classList.toggle("done")
+            });
+
+            list.appendChild(item);
+            input.value = "";
+        });   
+    </script>
+</body>
+</html>
